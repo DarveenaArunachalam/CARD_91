@@ -1,0 +1,7 @@
+{
+    "watchForFileChanges":true,
+    "screenshotOnRunFailure": true,
+    "screenshotsFolder": "cypress/screenshots",
+    "trashAssetsBeforeRuns": false
+    
+}

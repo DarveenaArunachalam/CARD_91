@@ -1,0 +1,93 @@
+/// <reference types ="cypress"/> 
+describe('Monepeak portal', function(){ 
+    it('should load correct url',function(){
+        cy.visit('https://admin.sb.stag.card91.in/')
+         })
+    it('Should check correct url',function(){
+        cy.url().should('include','card91.in')  
+         }) 
+    it('Verify the title of the page',function(){
+        cy.title().should('eq','CARD91.IO Administrator Panel - Staging - Sandbox')
+    })
+    it('Verify title of the page',function(){
+        cy.get('h6').should('be.visible')
+         })
+    it('Should fill username',function(){
+         cy.get('[data-test="userEmail"]')
+        .type('testuser@mailinator.com')
+        .should('be.visible')
+        .should('be.enabled')
+        .should('have.value', 'testuser@mailinator.com')
+    })     
+    it('Should fill password',function(){
+        cy.get('div').should('contain.text', 'password')
+        cy.get('#passwordBoxForLogin')
+        .type('Test@123')
+        .should('be.visible')
+        .should('be.enabled')
+        .should('have.value', 'Test@123')
+        //cy.screenshot('Login Page.png')
+    })
+    it('Should click the login button',function(){
+        cy.get("#loginBtn")
+        .should('be.visible')
+        .should('contain', 'LOGIN');
+        cy.get('#loginBtn').click()
+        
+    })
+})
+describe('Click Add business button',function(){
+    it('Business Creation', function(){
+        //cy.screenshot('MP Dashboard.png')
+        cy.get('.btn>.d-inline-block')
+        .should('contain', 'New Business')
+        .should('be.visible')
+        .click() 
+        cy.wait(3000)
+        cy.get('#displayName')
+        .should('be.visible')
+        .should('be.enabled')
+        .type('displayName')
+        cy.get('#businessName')
+        .should('be.visible')
+        .should('be.enabled')
+        .type('businessName')
+        
+        //cy.get('.multiselect__select').click()
+        //cy.get('span').contains('LLP').click()
+        //cy.get('span[placeholder="Search"] span:1').should('have.text', 'PRIVATE').click()
+        cy.get('.multiselect__single').eq(0).click()
+        cy.wait(3000)
+        cy.get('[data-selected="Selected"]').
+        contains('LLP')
+        .click({animationDistanceThreshold: 20})
+        .should('have.text','LLP')
+        cy.get('[aria-label="gst number"]').eq(0).type('22ZSXDE8089K1Z2')
+        cy.get('[aria-label="tan number"]').eq(0).type('BCVF70788J')
+        cy.get('[aria-label="pan number"]').eq(0).type('BCVFG0989M')
+        cy.get('[aria-label="cin number"]').eq(0).type('L76764KA2019OPC141331') 
+        //cy.get('.multiselect__single').eq(1).click()
+       // cy.wait(3000)
+        //cy.get('span[data-selected="Selected"]').eq(1).contains('YES')
+       // .click()
+        //.should('have.text','YES')
+        //cy.get('.multiselect__select').click()
+        cy.get('#accountNumber').type('2321132323123')
+        cy.get('#ifscCode').type('YESB0000535')
+        cy.get('[aria-label="address 1"]').eq(0).type('123S,New Bus Stand')
+        cy.get('[aria-label="address 2"]').eq(0).type('BNNS Complex')
+        cy.get('[aria-label="Landmark Input"]').eq(0).type('Thanjavur')
+        cy.get('#pinCode').type('614804')
+        cy.get('[aria-label="city name"]').eq(0).type('Thanjavur')
+        cy.get('[aria-label="state name"]').eq(0).type('TN')
+        cy.get("#authSignName").type('USERNAME')
+        cy.get('#authSignMobile').type('8623109762')
+        cy.get('#authSignEmail').type('1234@mailinator.com')
+        cy.get('button')
+        .contains('Submit')
+        .should('be.visible')
+        .click()
+
+
+    })
+})
