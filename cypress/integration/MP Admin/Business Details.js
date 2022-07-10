@@ -216,7 +216,7 @@ describe('Business Details',function(){
     })
 })
 
-describe('Click Add business button',function(){
+/*describe('Click Add business button',function(){
     it('Business Creation', function(){
         //cy.screenshot('MP Dashboard.png')
         cy.get('.btn>.d-inline-block').should('contain', 'New Business');
@@ -247,7 +247,7 @@ describe('Click Add business button',function(){
 
 
     })
-})
+})*/
 
 
 
