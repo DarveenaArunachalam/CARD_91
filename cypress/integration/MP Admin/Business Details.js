@@ -45,12 +45,12 @@ describe('Business Details',function(){
         let a="cardprogram"
         if(a=="b"){
        cy.get('div').contains('New Card Program').click()
-       cy.get('input[name=groupName]').type('Card Program Name')
-       cy.get('.multiselect__single').eq(0).click()
+       cy.get('input[name=groupName]').type('Card Program Name2')
+       cy.get('.multiselect__single').eq(0).click('topRight', { force: true })
         cy.wait(3000)
         cy.get('[data-selected="Selected"]').
         contains('YES Bank - Rupay')
-        .click({animationDistanceThreshold: 20})
+        .click()
         .should('have.text','YES Bank - Rupay')
        cy.get('button').contains('Save').click()
       // else{
@@ -200,11 +200,64 @@ describe('Business Details',function(){
         
         cy.get('a[class="nav-link"]').eq(1).click()
         cy.wait(3000)
-        
+        //Get Card Details
         cy.get('.hover-pointer').eq(0).click();
-        cy.get('button').contains('Load Fund').click();
+        //Load fund
+        cy.get('button').contains('Load Fund').eq(0).click();
+        cy.get('#amount-input-undefined').type('150')
+        cy.get('.mt-5').contains('Add Money').eq(0).click({force:true})
+        //WIthdraw fund
+        cy.get('.hover-pointer').eq(0).click();
+        cy.get('button').contains('Withdraw Fund').click();
         cy.get('#amount-input-undefined').type('100')
-        cy.get('.mt-5').contains('Add Money').click({force:true})
+        cy.get('.mt-5').contains('Withdraw Fund').eq(0).click({force:true})
+        cy.get('.hover-pointer').eq(0).click();
+        //Demo transaction
+        cy.get('button').contains('Demo Transaction').click();
+        cy.get('[placeholder="Type Amount"]').type('10')
+        cy.get('[class="txn-type-select custom-select"]').select('TAP').
+            should('have.value','TAP')
+       cy.get('[placeholder="Merchant Name"]').type('abcd')
+       cy.get('[placeholder="Merchant City"]').clear()
+       cy.get('[placeholder="Merchant City"]') .type('Bangalore')
+       cy.get('[placeholder="Enter Merchant ID"]').clear()
+       cy.get('[placeholder="Enter Merchant ID"]').type('1234')
+       cy.get('[placeholder="Enter Terminal ID"]').clear()
+       cy.get('[placeholder="Enter Terminal ID"]').type('1234')
+       cy.get('[placeholder="Enter MCC"]').clear()
+       cy.get('[placeholder="Enter MCC"]').type('1234')
+       cy.get('button').contains('Submit').click();
+       //Get transaction details
+       cy.get('a[class="nav-link"]').eq(4).click()
+       cy.wait(3000)
+       .scrollTo('bottom')
+      // cy.wait(1000)
+      // cy.screenshot('transactionlist.png')
+
+      //Freeze Card
+       cy.get('#card-detail-view-component > div > div.card-detail-right > section > button.btn.ml-2.btn-secondary.rounded-0').click()
+       cy.get('#lockUnlockOrBlockCard___BV_modal_body_ > div > div.freezeBtnMargin > button.btn.modal-btn.cancel-btn.btn-secondary').should('be.enabled').click()
+       cy.get('#card-detail-view-component > div > div.card-detail-right > section > button.btn.ml-2.btn-secondary.rounded-0').click()
+       cy.get('#lockUnlockOrBlockCard___BV_modal_body_ > div > div.freezeBtnMargin > button.btn.modal-btn.btn-danger').click() 
+
+       //unfreeze card   
+       cy.get('.hover-pointer').eq(0).click();
+       cy.get('button.btn:nth-child(3)').click()
+       cy.get('button.modal-btn:nth-child(2)').click()
+
+       //Block Card
+       cy.get('.hover-pointer').eq(0).click();
+       cy.get('button.btn:nth-child(4)').click()
+
+       //cancel
+       cy.get('button.modal-btn:nth-child(1)').click()
+
+       //Block Card
+       //cy.get('button.btn:nth-child(4)').click()
+
+      // cy.get('button.modal-btn:nth-child(2)').click()
+
+        
         
 
 
