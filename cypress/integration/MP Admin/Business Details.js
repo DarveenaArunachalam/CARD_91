@@ -230,7 +230,10 @@ describe('Business Details',function(){
        //Get transaction details
        cy.get('a[class="nav-link"]').eq(4).click()
        cy.wait(3000)
-       .scrollTo('bottom')
+       cy.get('[class="scrollBtn scrollBtnTop scrollBtnPosition"]')
+       .then((element) => element[0].offsetTop)
+       .then((offset) => cy.window().its('scrollY').should('equal', offset));
+       cy.scrollTo('bottom').window().its('scrollY').should('not.equal', 0);
       // cy.wait(1000)
       // cy.screenshot('transactionlist.png')
 
@@ -253,9 +256,15 @@ describe('Business Details',function(){
        cy.get('button.modal-btn:nth-child(1)').click()
 
        //Block Card
-       //cy.get('button.btn:nth-child(4)').click()
+        cy.get('button.btn:nth-child(4)').click()
+        cy.get('[value="LOST"]').should('be.checked')
+        cy.get('[value="STOLEN"]').should('not.be.checked')
+        cy.get('[value="DAMAGED"]').should('not.be.checked')
+        cy.get('[value="NOT_REQUIRED"]').should('not.be.checked')
+        cy.get('button.modal-btn:nth-child(2)').click()
 
-      // cy.get('button.modal-btn:nth-child(2)').click()
+        cy.get('.hover-pointer').eq(0).click();
+        cy.screenshot('card.png')
 
         
         
