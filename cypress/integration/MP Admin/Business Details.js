@@ -264,7 +264,28 @@ describe('Business Details',function(){
         cy.get('button.modal-btn:nth-child(2)').click()
 
         cy.get('.hover-pointer').eq(0).click();
-        cy.screenshot('card.png')
+        cy.wait(3000)
+       cy.get('[id="close-wrapper"]').click()
+        //cy.screenshot('card.png')
+        cy.get('svg.mb-1').click()
+        //cards filter
+        cy.get('[value="all"]').should('be.checked')
+        cy.get('[value="ACTIVE"]').should('not.be.checked')
+        cy.get('[value="LOCKED"]').should('not.be.checked')
+        cy.get('[value="BLOCKED"]').click({force:true}).should('be.checked')
+        cy.wait(1000)
+        //cy.screenshot('block.png')
+        cy.get('[value="PENDING"]').should('not.be.checked')
+        cy.get('[value="INACTIVE"]').should('not.be.checked')
+        //Search
+        cy.get('[placeholder="Name / Phone number / card no."]')
+        .should('be.visible')
+        .type('CardB')
+        cy.get('[placeholder="Name / Phone number / card no."').type('{enter}'); 
+        cy.get('#cardVueTable > div > div:nth-child(2) > div.vuetable-body-wrapper.scroll-always-visible > table')
+    .should('contain', 'CardB')
+
+
 
         
         
