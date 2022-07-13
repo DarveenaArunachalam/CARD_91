@@ -262,7 +262,6 @@ describe('Business Details',function(){
         cy.get('[value="DAMAGED"]').should('not.be.checked')
         cy.get('[value="NOT_REQUIRED"]').should('not.be.checked')
         cy.get('button.modal-btn:nth-child(2)').click()
-
         cy.get('.hover-pointer').eq(0).click();
         cy.wait(3000)
        cy.get('[id="close-wrapper"]').click()
