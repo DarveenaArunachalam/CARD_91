@@ -281,9 +281,9 @@ describe('Business Details',function(){
         cy.get('[placeholder="Name / Phone number / card no."]')
         .should('be.visible')
         .type('CardB')
-        cy.get('[placeholder="Name / Phone number / card no."').type('{enter}'); 
+        cy.get('[placeholder="Name / Phone number / card no."]').type('{enter}'); 
         cy.get('#cardVueTable > div > div:nth-child(2) > div.vuetable-body-wrapper.scroll-always-visible > table')
-    .should('contain', 'CardB')
+        .should('contain', 'CardB')
 
 
 
